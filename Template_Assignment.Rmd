@@ -12,6 +12,7 @@ output: pdf_document
 install.packages("tidyverse")
 install.packages("yaml")
 install.packages("rmarkdown")
+install.packages("ggplot2")
 ```
 
 ```{r packages}
