@@ -50,6 +50,7 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 dataset <- midwest
 ```
 
+
 midwest is an example dataset included in the tidyverse package
 
 ## 2.2 Provide a short summary of the dataset(s)
