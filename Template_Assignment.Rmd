@@ -4,9 +4,8 @@ author: "Studentnames and studentnumbers here"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
+
 # Set-up your environment
-
-
 
 ```{r package_install, include=FALSE}
 install.packages("tidyverse")
@@ -23,11 +22,11 @@ require(yaml)
 
 # Title Page
 
-Include your names
+Ilias Abgij, Denis Bykov, Finn van Echtelt, Merlijn Haster, Milan Kroes, Luuk Neefjes, Raluca Oprina
 
-Include the tutorial group number
+Tutorial group 04
 
-Include your tutorial lecturer's name
+Fatima Amankour
 
 # Part 1 - Identify a Social Problem
 
@@ -37,9 +36,9 @@ Use APA referencing throughout your document. [Here's a link to some explanation
 
 Include the following:
 
--   Why is this relevant?
+- Why is this relevant?
 
--   ...
+- ...
 
 # Part 2 - Data Sourcing
 
@@ -71,9 +70,9 @@ These are things that are usually included in the metadata of the dataset. For y
 
 Think of things like:
 
--   Do the variables contain health information or SES information?
+- Do the variables contain health information or SES information?
 
--   Have they been measured by interviewing individuals or is the data coming from administrative sources?
+- Have they been measured by interviewing individuals or is the data coming from administrative sources?
 
 *For the sake of this example, I will continue with the assignment...*
 
@@ -162,3 +161,5 @@ Provide the link to your PUBLIC repository here: ...
 ## 5.2 Reference list
 
 Use APA referencing throughout your document.
+
+library(ggplot2)
