@@ -37,7 +37,12 @@ Use APA referencing throughout your document. [Here's a link to some explanation
 Include the following:
 
 - Why is this relevant?
+The Benelux is usually considered as a very prosperous region in Europe. Although this is true, poverty still remains to be a problem inside the Benelux. While the share of people living in poverty is decreasing the number of people living in poverty in the Benelux is increasing. Living in poverty can affect peoples health, educational opportunities and social participation. For policymakers it is important to know how poverty relates to over well-being or happiness. It is important because they can improve overall quality of life within the Benelux with the right data.
 
+Sources:
+https://statbel.fgov.be/en/news/2024-more-21-million-belgians-are-risk-poverty-or-social-exclusion
+https://www.cbs.nl/en-gb/news/2025/51/rise-in-poverty-rate-after-five-years-of-decreases
+https://www.lisdatacenter.org/newsletter/nl-2025-36-im-5/
 - ...
 
 # Part 2 - Data Sourcing
