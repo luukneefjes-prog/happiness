@@ -12,12 +12,14 @@ install.packages("tidyverse")
 install.packages("yaml")
 install.packages("rmarkdown")
 install.packages("ggplot2")
+install.packages("readxl")
 ```
 
 ```{r packages}
 require(tidyverse)
 require(rmarkdown)
 require(yaml)
+library(readxl)
 ```
 
 # Title Page
@@ -54,6 +56,10 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 ```{r loading_data}
 gdp.benelux
 happiness.index
+
+
+happiness
+poverty <- read_xlsx("data/povertybenelux.xlsx")
 ```
 
 midwest is an example dataset included in the tidyverse package
