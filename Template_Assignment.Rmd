@@ -14,7 +14,8 @@ install.packages("rmarkdown")
 install.packages("ggplot2")
 install.packages("readxl")
 install.packages("knitr")
-```
+install_tinytex()
+``
 
 ```{r packages}
 require(tidyverse)
@@ -22,6 +23,7 @@ require(rmarkdown)
 require(yaml)
 library(readxl)
 library(knitr)
+library(tinytex)
 ```
 
 # Title Page
