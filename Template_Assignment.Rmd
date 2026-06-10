@@ -17,7 +17,6 @@ install.packages("knitr")
 install_tinytex()
 ``
 
-```{r packages}
 require(tidyverse)
 require(rmarkdown)
 require(yaml)
