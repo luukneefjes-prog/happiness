@@ -14,15 +14,15 @@ install.packages("rmarkdown")
 install.packages("ggplot2")
 install.packages("readxl")
 install.packages("knitr")
-install_tinytex()
+install.packages("dplyr")
 ``
-
 require(tidyverse)
 require(rmarkdown)
 require(yaml)
 library(readxl)
 library(knitr)
 library(tinytex)
+require(dplyr)
 ```
 
 # Title Page
@@ -50,7 +50,6 @@ Despite all this research, gaps remain. Researchers continue to debate whether w
 Preferably from a URL, but if not, make sure to download the data and store it in a shared location that you can load the data in from. Do not store the data in a folder you include in the Github repository!
 
 ```{r loading_data}
-
 
 poverty <- read_xlsx("data/povertybenelux.xlsx")
 happiness <- read_xlsx("data/happinessbenelux.xlsx")
@@ -90,8 +89,36 @@ Think of things like:
 
 Say we want to include only larger distances (above 2) in our dataset, we can filter for this.
 
+# Steps taken for data cleaning
+
+1.  **strip non-numeric characters**
+2.  **pivot from wide to long**
+3.  **convert the year column to integer**
+4.  **have the GDP values also in line with the earlier observations that are already in billions**
+5.  **'left-join' all four long tables on 'country' and 'year'**
+
 ```{r data_cleaning}
-mean(dataset$percollege)
+clean_long <- function(df, value_col) {
+  df%>%
+    pivot_longer(-Country,names_to = "year", values_to = value_col) %>%
+    mutate(year = as.integer(year))
+}
+
+# 2. clean each dataset first
+gdp <- gdp %>%
+  mutate(across(-Country, ~ round(as.numeric(gsub(",", "", .)), 3)))
+
+inflation <- inflation %>%
+  mutate(across(-Country, ~ as.numeric(gsub("%", "", .))))
+
+poverty <- poverty %>%
+  mutate(across(-Country, ~ as.numeric(gsub("%", "", .))))
+
+# 3. then apply clean_long to each
+gdp <- clean_long(gdp, "gdp")
+inflation <- clean_long(inflation, "inflation")
+happiness <- clean_long(happiness, "happiness")
+poverty <- clean_long(poverty, "poverty")
 ```
 
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
