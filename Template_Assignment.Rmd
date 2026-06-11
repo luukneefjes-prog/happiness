@@ -15,7 +15,9 @@ install.packages("ggplot2")
 install.packages("readxl")
 install.packages("knitr")
 install.packages("dplyr")
-``
+```
+
+```{r package_requirement, include=FALSE}
 require(tidyverse)
 require(rmarkdown)
 require(yaml)
@@ -103,8 +105,9 @@ clean_long <- function(df, value_col) {
     pivot_longer(-Country,names_to = "year", values_to = value_col) %>%
     mutate(year = as.integer(year))
 }
+```
 
-# 2. clean each dataset first
+```{remove_symbols}
 gdp <- gdp %>%
   mutate(across(-Country, ~ round(as.numeric(gsub(",", "", .)), 3)))
 
@@ -113,8 +116,9 @@ inflation <- inflation %>%
 
 poverty <- poverty %>%
   mutate(across(-Country, ~ as.numeric(gsub("%", "", .))))
+``` 
 
-# 3. then apply clean_long to each
+```{pivot_too_long}
 gdp <- clean_long(gdp, "gdp")
 inflation <- clean_long(inflation, "inflation")
 happiness <- clean_long(happiness, "happiness")
