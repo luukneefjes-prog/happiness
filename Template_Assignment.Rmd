@@ -107,7 +107,7 @@ clean_long <- function(df, value_col) {
 }
 ```
 
-```{remove_symbols}
+```{r remove_symbols}
 gdp <- gdp %>%
   mutate(across(-Country, ~ round(as.numeric(gsub(",", "", .)), 3)))
 
@@ -118,11 +118,34 @@ poverty <- poverty %>%
   mutate(across(-Country, ~ as.numeric(gsub("%", "", .))))
 ``` 
 
-```{pivot_too_long}
+```{r pivot_too_long}
 gdp <- clean_long(gdp, "gdp")
 inflation <- clean_long(inflation, "inflation")
 happiness <- clean_long(happiness, "happiness")
 poverty <- clean_long(poverty, "poverty")
+```
+
+```{r merge_data}
+merged <- gdp %>%
+  left_join(happiness, by = c("Country", "year")) %>%
+  left_join(inflation, by = c("Country", "year")) %>%
+  left_join(poverty, by = c("Country", "year"))
+```
+```{r time_periods}
+merged <- merged %>%
+  mutate(period = case_when(
+    year <= 2017 ~ "Early",
+    year <= 2021 ~ "Mid",
+    TRUE ~ "Late"
+  ))
+```
+
+```{r boxplot}
+ggplot(merged, aes(x = period, y = happiness, fill = period)) + geom_boxplot() +
+  facet_wrap(~ Country) + 
+  labs(title = "Happiness by time period, split by country",
+       x = "Time period",
+       y = "Happiness score")
 ```
 
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
