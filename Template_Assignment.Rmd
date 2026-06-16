@@ -15,6 +15,9 @@ install.packages("ggplot2")
 install.packages("readxl")
 install.packages("knitr")
 install.packages("dplyr")
+install.packages("rnaturalearth")
+install.packages("rnaturalearthdata")
+install.packages("sf")
 ```
 
 ```{r package_requirement, include=FALSE}
@@ -25,6 +28,9 @@ library(readxl)
 library(knitr)
 library(tinytex)
 require(dplyr)
+require(rnaturalearth)
+require(rnaturalearthdata)
+require(sf)
 ```
 
 # Title Page
@@ -140,13 +146,7 @@ merged <- merged %>%
   ))
 ```
 
-```{r boxplot}
-ggplot(merged, aes(x = period, y = happiness, fill = period)) + geom_boxplot() +
-  facet_wrap(~ Country) + 
-  labs(title = "Happiness by time period, split by country",
-       x = "Time period",
-       y = "Happiness score")
-```
+
 
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
 
@@ -166,14 +166,42 @@ Variable 2
 
 ## 3.3 Visualize temporal variation
 
-```{r}
+```{r temporal_variation}
+ggplot(merged, aes(x = year, y = happiness, color = Country)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Happiness over time Benelux",
+       x = "Year",
+       y = "Happiness score",
+       color = "Country")
 
 ```
 
 ## 3.4 Visualize spatial variation
 
-```{r visualise_map}
+```{r average_happiness}
+avg_happiness <- merged %>%
+  group_by(Country) %>%
+  summarise(avg_happiness = mean(happiness, na.rm = TRUE))
+```
 
+```{r map}
+world_map <- ne_countries(scale = "medium", returnclass = "sf")
+```
+
+```{r join_map_data}
+benelux_map <- world_map %>%
+  left_join(avg_happiness, by = c("name" = "Country"))
+```
+
+```{r spatial_variation}
+ggplot(benelux_map) +
+  geom_sf(aes(fill = avg_happiness)) +
+  coord_sf(xlim = c(2, 7), ylim = c(49, 54), expand = FALSE) +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey90") +
+  labs(title = "Average happiness Benelux (2014-2025)",
+       fill = "Average happiness") +
+  theme_minimal()
 ```
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
@@ -182,20 +210,12 @@ Here you provide a description of why the plot above is relevant to your specifi
 
 What is the poverty rate by state?
 
-```{r visualise_subpopulations}
-dataset$inmetro <- dataset$inmetro %>% as.factor()
-# Boxplot of poverty rate by state using the 'midwest' dataset
-ggplot(dataset, aes(x = inmetro, y = percadultpoverty)) +
-  geom_boxplot() +
-  labs(
-    title = "Distribution of Poverty Rates by Metropolitan status (Midwest counties)",
-    x = "Metropolitan Area",
-    y = "Poverty Rate of Adults (%)"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "right"
-  )
+```{r boxplot}
+ggplot(merged, aes(x = period, y = happiness, fill = period)) + geom_boxplot() +
+  facet_wrap(~ Country) + 
+  labs(title = "Happiness by time period, split by country",
+       x = "Time period",
+       y = "Happiness score")
 ```
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
@@ -205,7 +225,16 @@ Here you provide a description of why the plot above is relevant to your specifi
 Analyze the relationship between two variables.
 
 ```{r analysis}
-
+ggplot(merged, aes(x = year, y = happiness, color = Country)) +
+  geom_line() +
+  geom_point() +
+  geom_vline(xintercept = 2020, linetype = "dashed", color = "red") +
+  labs(title = "Happiness over time with COVID",
+       x = "Year",
+       y = "Happiness score",
+       color = "Country") +
+  annotate("text", x = 2020.2, y = max(merged$happiness, na.rm = TRUE),
+           label = "Covid", color = "red", hjust = 0) 
 ```
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
