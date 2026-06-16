@@ -137,14 +137,7 @@ merged <- gdp %>%
   left_join(inflation, by = c("Country", "year")) %>%
   left_join(poverty, by = c("Country", "year"))
 ```
-```{r time_periods}
-merged <- merged %>%
-  mutate(period = case_when(
-    year <= 2017 ~ "Early",
-    year <= 2021 ~ "Mid",
-    TRUE ~ "Late"
-  ))
-```
+
 
 
 
@@ -155,13 +148,12 @@ Please use a separate 'R block' of code for each type of cleaning. So, e.g. one 
 Variable 1
 
 ```{r gen_var1}
-
-```
-
-Variable 2
-
-```{r gen_var2}
-
+merged <- merged %>%
+  mutate(period = case_when(
+    year <= 2017 ~ "Early",
+    year <= 2021 ~ "Mid",
+    TRUE ~ "Late"
+  ))
 ```
 
 ## 3.3 Visualize temporal variation
