@@ -156,14 +156,29 @@ merged <- merged %>%
 ## 3.3 Visualize temporal variation
 
 ```{r temporal_variation}
-ggplot(merged, aes(x = year, y = happiness, color = Country)) +
+merged %>%
+  pivot_longer(cols = c(happiness, inflation, poverty),
+               names_to = "variable",
+               values_to = "value") %>%
+  ggplot(aes(x = year, y = value, color = Country)) +
   geom_line() +
   geom_point() +
-  labs(title = "Happiness over time Benelux",
+  facet_wrap(~ variable, scales = "free_y") +
+  labs(title = "Happiness, GDP, inflation, poverty Benelux",
        x = "Year",
-       y = "Happiness score",
+       y = "Value",
        color = "Country")
 
+ggplot(merged, aes(x = year, y = gdp, color = Country)) +
+  geom_line() +
+  geom_point() +
+  scale_y_log10() +
+  labs(title = "GDP in Benelux (log scale)",
+       x = "Year",
+       y = "GDP",
+       color = "Country")
+```
+```{r gdp_variation}
 ```
 
 ## 3.4 Visualize spatial variation
@@ -214,16 +229,19 @@ Here you provide a description of why the plot above is relevant to your specifi
 Analyze the relationship between two variables.
 
 ```{r analysis}
-ggplot(merged, aes(x = year, y = happiness, color = Country)) +
+merged %>%
+  pivot_longer(cols = c(happiness, inflation),
+               names_to = "variable",
+               values_to = "value") %>%
+  ggplot(aes(x = year, y = value, color = Country)) +
   geom_line() +
   geom_point() +
   geom_vline(xintercept = 2020, linetype = "dashed", color = "red") +
-  labs(title = "Happiness over time with COVID",
+  facet_wrap(~ variable, scales = "free_y") +
+  labs(title = "Happines & inflation with COVID",
        x = "Year",
-       y = "Happiness score",
-       color = "Country") +
-  annotate("text", x = 2020.2, y = max(merged$happiness, na.rm = TRUE),
-           label = "Covid", color = "red", hjust = 0) 
+       y = "Value",
+       color = "Country")
 ```
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
