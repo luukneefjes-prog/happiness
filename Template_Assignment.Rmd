@@ -203,7 +203,9 @@ ggplot(benelux_map) +
   labs(title = "Average happiness Benelux (2014-2025)",
        fill = "Average happiness") +
   theme_minimal()
+
 ```
+
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
@@ -256,5 +258,3 @@ Provide the link to your PUBLIC repository here: ...
 ## 5.2 Reference list
 
 Use APA referencing throughout your document.
-
-library(ggplot2)
