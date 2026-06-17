@@ -1,6 +1,15 @@
 ---
-title: "Template"
-author: "Studentnames and studentnumbers here"
+title: "Wealth and Happiness"
+author: 
+- "Luuk Neefjes 2898224" 
+- "Ilias Abgij"
+- "Denis Bykov" 
+- "Finn van Echtelt" 
+- "Merlijn Haster" 
+- "Milan Kroes"
+- "Raluca Oprina" 
+- "Tutorial Group 04"
+- "Fatima Amankour"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
@@ -33,24 +42,13 @@ require(rnaturalearthdata)
 require(sf)
 ```
 
-# Title Page
-
-Ilias Abgij, Denis Bykov, Finn van Echtelt, Merlijn Haster, Milan Kroes, Luuk Neefjes, Raluca Oprina
-
-Tutorial group 04
-
-Fatima Amankour
-
-# Part 1 - Identify a Social Problem
-
-Use APA referencing throughout your document. [Here's a link to some explanation.](https://www.mendeley.com/guides/apa-citation-guide/)
+# Part 1 - Identification of the social problem
 
 ## 1.1 Describe the Social Problem
 
-The relation between wealth and happiness in countries is a social problem because many societies think that wealth is the key to a happy life. Research shows that happiness is associated with wealth, particularly when basic needs are not met. However, studies also suggest that beyond a certain point more wealth does not equal higher happiness. So the question is, can economic wealth on it's own improve quality of life?
+The relation between wealth and happiness in countries is a social problem because many societies think that wealth is the key to a happy life. While richer countries tend to report higher life satisfaction, research shows that beyond a certain income level, more wealth does not equal more happiness (Kahneman & Deaton, 2010). The Easterlin paradox suggests that economic growth over time does not increase happiness at the same rate forever (Easterlin, 1974).
 
-Despite all this research, gaps remain. Researchers continue to debate whether wealth really keeps creating happiness or if it reaches a plateau.
-
+In this report, we examine GDP, inflation, poverty, and happiness between 2014 and 2025 in the Benelux. 
 # Part 2 - Data Sourcing
 
 ## 2.1 Load in the data
