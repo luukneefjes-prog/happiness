@@ -255,4 +255,6 @@ Provide the link to your PUBLIC repository here: ...
 
 ## 5.2 Reference list
 
-Use APA referencing throughout your document.
+-Easterlin, R.A. (1974). Does economic growth improve the human lot? In P.A. David & M.W. Reder (EDS.), nations and households in economic growth (pp. 89-125). Academic press. 
+
+-Kahneman, D. & Deaton, A. (2010). High income improves evaluation of life but not emotional well-being. Proceedings of the national academy of sciences,107(38), 16489-16493. https://doi.org/10.1073/pnas.1011492107 
