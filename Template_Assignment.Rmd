@@ -48,8 +48,7 @@ require(sf)
 
 The relation between wealth and happiness in countries is a social problem because many societies think that wealth is the key to a happy life. While richer countries tend to report higher life satisfaction, research shows that beyond a certain income level, more wealth does not equal more happiness (Kahneman & Deaton, 2010). The Easterlin paradox suggests that economic growth over time does not increase happiness at the same rate forever (Easterlin, 1974).
 
-In this report, we examine GDP, inflation, poverty, and happiness between 2014 and 2025 in the Benelux. 
-# Part 2 - Data Sourcing
+In this report, we examine GDP, inflation, poverty, and happiness between 2014 and 2025 in the Benelux. \# Part 2 - Data Sourcing
 
 ## 2.1 Load in the data
 
@@ -204,7 +203,6 @@ ggplot(benelux_map) +
 
 ```
 
-
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
 ## 3.5 Visualize sub-population variation
@@ -255,6 +253,6 @@ Provide the link to your PUBLIC repository here: ...
 
 ## 5.2 Reference list
 
--Easterlin, R.A. (1974). Does economic growth improve the human lot? In P.A. David & M.W. Reder (EDS.), nations and households in economic growth (pp. 89-125). Academic press. 
+-Easterlin, R.A. (1974). Does economic growth improve the human lot? In P.A. David & M.W. Reder (EDS.), nations and households in economic growth (pp. 89-125). Academic press.
 
--Kahneman, D. & Deaton, A. (2010). High income improves evaluation of life but not emotional well-being. Proceedings of the national academy of sciences,107(38), 16489-16493. https://doi.org/10.1073/pnas.1011492107 
+-Kahneman, D. & Deaton, A. (2010). High income improves evaluation of life but not emotional well-being. Proceedings of the national academy of sciences,107(38), 16489-16493. <https://doi.org/10.1073/pnas.1011492107>
