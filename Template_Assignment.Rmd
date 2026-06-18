@@ -256,3 +256,15 @@ Provide the link to your PUBLIC repository here: ...
 -Easterlin, R.A. (1974). Does economic growth improve the human lot? In P.A. David & M.W. Reder (EDS.), nations and households in economic growth (pp. 89-125). Academic press.
 
 -Kahneman, D. & Deaton, A. (2010). High income improves evaluation of life but not emotional well-being. Proceedings of the national academy of sciences,107(38), 16489-16493. <https://doi.org/10.1073/pnas.1011492107>
+
+-Eurostat. (n.d.). At-risk-of-poverty rate by poverty threshold, age and sex (tespm010). European Commission. Retrieved June 18, 2026, from Eurostat Data Browser
+
+-StatBase. (n.d.). Happiness index: Netherlands – yearly data, chart and table. Retrieved June 18, 2026, from https://statbase.org/data/nld-happiness-index/
+
+-StatBase. (n.d.). Happiness index: Belgium – yearly data, chart and table. Retrieved June 18, 2026, from https://statbase.org/data/bel-happiness-index/ 
+
+-StatBase. (n.d.). Happiness index: Luxembourg – yearly data, chart and table. Retrieved June 18, 2026, from https://statbase.org/data/lux-happiness-index/ 
+
+-Eurostat. (n.d.). Price level indices (tec00120). European Commission. Retrieved June 18, 2026, from https://ec.europa.eu/eurostat/databrowser/view/tec00120/default/table?lang=en
+
+-Eurostat. (n.d.). HICP – inflation rate (tec00118). European Commission. Retrieved June 18, 2026, from https://ec.europa.eu/eurostat/databrowser/view/tec00118/default/table?lang=en
