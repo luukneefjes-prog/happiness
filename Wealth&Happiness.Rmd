@@ -2,11 +2,11 @@
 title: "Wealth and Happiness"
 author: 
 - "Luuk Neefjes 2898224" 
-- "Ilias Abgij"
+- "Ilias Abgij 2697642"
 - "Denis Bykov" 
-- "Finn van Echtelt" 
+- "Finn van Echtelt 2871366"
 - "Merlijn Haster" 
-- "Milan Kroes"
+- "Milan Kroes 2890388"
 - "Raluca Oprina" 
 - "Tutorial Group 04"
 - "Fatima Amankour"
@@ -280,4 +280,4 @@ https://github.com/luukneefjes-prog/happiness
 
 -Eurostat. (n.d.). HICP – inflation rate (tec00118). European Commission. Retrieved June 18, 2026, from https://ec.europa.eu/eurostat/databrowser/view/tec00118/default/table?lang=en
 
--
+-Killingsworth, M. A., Kahneman, D., & Mellers, B. (2023). Income and emotional well-being: A conflict resolved. Proceedings of the National Academy of Sciences, 120(10), e2208661120. https://doi.org/10.1073/pnas.2208661120
