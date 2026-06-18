@@ -157,7 +157,7 @@ merged %>%
   geom_line() +
   geom_point() +
   facet_wrap(~ variable, scales = "free_y") +
-  labs(title = "Happiness, GDP, inflation, poverty Benelux",
+  labs(title = "Happiness, GDP(PPP), inflation, poverty Benelux",
        x = "Year",
        y = "Value",
        color = "Country")
@@ -166,9 +166,9 @@ ggplot(merged, aes(x = year, y = gdp, color = Country)) +
   geom_line() +
   geom_point() +
   scale_y_log10() +
-  labs(title = "GDP in Benelux (log scale)",
+  labs(title = "GDP (PPP) in Benelux (log scale)",
        x = "Year",
-       y = "GDP",
+       y = "GDP(PPP)",
        color = "Country")
 ```
 
