@@ -46,9 +46,9 @@ require(sf)
 
 ## 1.1 Describe the Social Problem
 
-The relation between wealth and happiness in countries is a social problem because many societies think that wealth is the key to a happy life. While richer countries tend to report higher life satisfaction, research shows that beyond a certain income level, more wealth does not equal more happiness (Kahneman & Deaton, 2010). The Easterlin paradox suggests that economic growth over time does not increase happiness at the same rate forever (Easterlin, 1974).
+The relation between wealth and happiness in countries is a social problem because many societies think that wealth is the key to a happy life. While richer countries tend to report higher life satisfaction, research shows that beyond a certain income level, more wealth does not equal more happiness (Kahneman & Deaton, 2010). The Easterlin paradox suggests that economic growth over time does not increase happiness at the same rate forever (Easterlin, 1974). More recently, Killingsworth et al. (2023) found that happiness does continue to rise with income for most people, but not for those who are already experiencing emotional distress. The relation between wealth and happiness is dependent on the context. Most studies focus on individual level income more than macro level indicators such as poverty and inflation.
 
-In this report, we examine GDP, inflation, poverty, and happiness between 2014 and 2025 in the Benelux. 
+In this report, we address that gap by researching the GDP, inflation, poverty, and happiness between 2014 and 2025 in the Benelux.
 
 # Part 2 - Data Sourcing
 
@@ -66,15 +66,19 @@ inflation <- read_xlsx("data/inflationbenelux.xlsx")
 
 This project uses four datasets, covering data from Belgium, Luxembourg, and the Netherlands from 2014-2025:
 
-GDP contains GDP per capita expressed in purchasing power parity (index, EU average = 100), sourced from Eurostat. It reflects how wealthy a country is relative to the EU average, adjusting for price level differences.
+GDP contains GDP per capita expressed in purchasing power parity (index, EU average = 100), sourced from Eurostat. It reflects how wealthy a country is relative to the EU average, adjusting for price level differences. A limitation is that the relative measurement is sensitive to shifts in other EU countries. 
 
-Happiness contains annual happiness scores (scale 0–10) per country, sourced from StatBase, which aggregates World Happiness Report data. The score reflects residents' subjective life satisfaction.
+Happiness contains annual happiness scores (scale 0–10) per country, sourced from StatBase, which aggregates World Happiness Report data. The score reflects residents' subjective life satisfaction. A limitation is that this aggregation relies on self-reported life satisfaction and may not be consistent in research across years. 
 
 Inflation contains the annual Harmonised Index of Consumer Prices (HICP) inflation rate (%), sourced from Eurostat. It captures the change in the general price level that households face.
 
-Poverty contains the at-risk-of-poverty rate (% of population below 60% of median income), sourced from Eurostat. It serves as a measure of how many income groups are at risk of living in poverty in a country.
+Poverty contains the at-risk-of-poverty rate (% of population below 60% of median income), sourced from Eurostat. It serves as a measure of how many income groups are at risk of living in poverty in a country. A limitation is that it captures inequality rather than absolute deprivation, so a country can improve on this metric by narowwing the gap between rich and poor rather than lifting the poorest. 
+
+All four datasets have the same limitation, they are annual national averages. Variation by region, age, or income group is not visible in these datasets.
 
 All four datasets were structured in wide format (countries as rows, years as columns) and were cleaned and merged into a single long-format dataset for analysis. 
+
+
 
 ## 2.3 Describe the type of variables included
 
@@ -164,7 +168,7 @@ ggplot(merged, aes(x = year, y = gdp, color = Country)) +
        color = "Country")
 ```
 
-Happiness scores remained stable across all three countries from 2014 to 2025, fluctuating within a narrow range. Inflation was low until spiking sharply in 2022 due to the post-COVID energy crisis, then fell again. Despite these economic shocks, happiness did not drop proportionally, supporting the Easterlin paradox. 
+Happiness scores remained stable across all three countries from 2014 to 2025, fluctuating within a narrow range. Inflation was low until spiking sharply in 2022 due to the post-COVID energy crisis, then fell again. Despite these economic shocks, happiness did not drop proportionally, supporting the Easterlin paradox.
 
 ## 3.4 Visualize spatial variation
 
@@ -205,10 +209,10 @@ ggplot(merged, aes(x = period, y = happiness, fill = period)) + geom_boxplot() +
        x = "Time period",
        y = "Happiness score")
 ```
-Happiness was stable across time periods in Belgium, while Luxembourg and the Netherlands showed a slight upward trend into the Late period. The Netherlands scored highest in every period. This suggests factors beyond GDP — such as inequality and social policy — shape how economic conditions translate into well-being. 
+
+Happiness was stable across time periods in Belgium, while Luxembourg and the Netherlands showed a slight upward trend into the Late period. The Netherlands scored highest in every period. This suggests factors beyond GDP — such as inequality and social policy — shape how economic conditions translate into well-being.
 
 ## 3.6 Event analysis
-
 
 ```{r analysis}
 merged %>%
@@ -230,37 +234,15 @@ Before 2020, inflation was low and happiness was steady across all three countri
 
 # Part 4 - Discussion
 
-The relationship between wealth and happiness was studied in Benelux from 2014 to 
-2025. GDP, inflation, poverty and happiness scores were used as key variables for 
-this research. Numerous studies and analyses provide the rationale for this thesis. 
-Easterlin (1974) demonstrated how richer people are always happier than poorer 
-ones in a country; but it also showed that rising national income does not lead to 
-rising happiness over time. This statement has been widely discussed in the past. 
-The contentment levels of most individuals still increase with their income, 
-Killingsworth et al. (2023) recently showed. However, this link is weaker for 
-individuals that are already suffering from depression, suggesting that one’s wealth 
-doesn’t necessarily equal happiness. This paper utilises the COVID-19 pandemic 
-(2020–2021) and its economic impacts particularly the increase in inflation in 2022 
-as a natural experiment to study the relationship between the real economy and the 
-financial markets. 
+The relationship between wealth and happiness was studied in Benelux from 2014 to 2025. GDP, inflation, poverty and happiness scores were used as key variables for this research. Numerous studies and analyses provide the rationale for this thesis. Easterlin (1974) demonstrated how richer people are always happier than poorer ones in a country; but it also showed that rising national income does not lead to rising happiness over time. This statement has been widely discussed in the past. The contentment levels of most individuals still increase with their income, Killingsworth et al. (2023) recently showed. However, this link is weaker for individuals that are already suffering from depression, suggesting that one’s wealth doesn’t necessarily equal happiness. This paper utilises the COVID-19 pandemic (2020–2021) and its economic impacts particularly the increase in inflation in 2022 as a natural experiment to study the relationship between the real economy and the financial markets.
 
-
-In general, the fluctuation of wealth, due to the ups and downs happening in the 
-economy, never makes one immune to it. Happiness reduces significantly when it 
-noted that the inflation spikes in 2022 and the 2020 Covid shock, which was when 
-prices and purchasing power became more than reasonable expectations. This is 
-also the case for rich countries, note. The literature also mentions a match of this 
-sort. Killingsworth et al. (2023) the observations reflect that wealth is not always a 
-guaranteed factor of happiness. In addition, the reminder of Easterlin’s (1974) 
-paradox is that it is not enough for the economy of the society to grow for happiness 
-to grow. After we pass the threshold, wealth stability and distribution rather than its 
-magnitude will determine happiness. 
+In general, the fluctuation of wealth, due to the ups and downs happening in the economy, never makes one immune to it. Happiness reduces significantly when it noted that the inflation spikes in 2022 and the 2020 Covid shock, which was when prices and purchasing power became more than reasonable expectations. This is also the case for rich countries, note. The literature also mentions a match of this sort. Killingsworth et al. (2023) the observations reflect that wealth is not always a guaranteed factor of happiness. In addition, the reminder of Easterlin’s (1974) paradox is that it is not enough for the economy of the society to grow for happiness to grow. After we pass the threshold, wealth stability and distribution rather than its magnitude will determine happiness.
 
 # Part 5 - Reproducibility
 
 ## 5.1 Github repository link
 
-https://github.com/luukneefjes-prog/happiness
+<https://github.com/luukneefjes-prog/happiness>
 
 ## 5.2 Reference list
 
@@ -270,14 +252,14 @@ https://github.com/luukneefjes-prog/happiness
 
 -Eurostat. (n.d.). At-risk-of-poverty rate by poverty threshold, age and sex (tespm010). European Commission. Retrieved June 18, 2026, from Eurostat Data Browser
 
--StatBase. (n.d.). Happiness index: Netherlands – yearly data, chart and table. Retrieved June 18, 2026, from https://statbase.org/data/nld-happiness-index/
+-StatBase. (n.d.). Happiness index: Netherlands – yearly data, chart and table. Retrieved June 18, 2026, from <https://statbase.org/data/nld-happiness-index/>
 
--StatBase. (n.d.). Happiness index: Belgium – yearly data, chart and table. Retrieved June 18, 2026, from https://statbase.org/data/bel-happiness-index/ 
+-StatBase. (n.d.). Happiness index: Belgium – yearly data, chart and table. Retrieved June 18, 2026, from <https://statbase.org/data/bel-happiness-index/>
 
--StatBase. (n.d.). Happiness index: Luxembourg – yearly data, chart and table. Retrieved June 18, 2026, from https://statbase.org/data/lux-happiness-index/ 
+-StatBase. (n.d.). Happiness index: Luxembourg – yearly data, chart and table. Retrieved June 18, 2026, from <https://statbase.org/data/lux-happiness-index/>
 
--Eurostat. (n.d.). Price level indices (tec00120). European Commission. Retrieved June 18, 2026, from https://ec.europa.eu/eurostat/databrowser/view/tec00120/default/table?lang=en
+-Eurostat. (n.d.). Price level indices (tec00120). European Commission. Retrieved June 18, 2026, from <https://ec.europa.eu/eurostat/databrowser/view/tec00120/default/table?lang=en>
 
--Eurostat. (n.d.). HICP – inflation rate (tec00118). European Commission. Retrieved June 18, 2026, from https://ec.europa.eu/eurostat/databrowser/view/tec00118/default/table?lang=en
+-Eurostat. (n.d.). HICP – inflation rate (tec00118). European Commission. Retrieved June 18, 2026, from <https://ec.europa.eu/eurostat/databrowser/view/tec00118/default/table?lang=en>
 
--Killingsworth, M. A., Kahneman, D., & Mellers, B. (2023). Income and emotional well-being: A conflict resolved. Proceedings of the National Academy of Sciences, 120(10), e2208661120. https://doi.org/10.1073/pnas.2208661120
+-Killingsworth, M. A., Kahneman, D., & Mellers, B. (2023). Income and emotional well-being: A conflict resolved. Proceedings of the National Academy of Sciences, 120(10), e2208661120. <https://doi.org/10.1073/pnas.2208661120>
