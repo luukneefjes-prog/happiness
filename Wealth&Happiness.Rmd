@@ -88,21 +88,16 @@ The variables in this project are macro-level socioeconomic and well-being indic
 
 ## 3.1 Data cleaning
 
-# Steps taken for data cleaning
+The raw datasets required several cleaning steps before they could be merged and analysed. 
 
-1.  **strip non-numeric characters**
-2.  **pivot from wide to long**
-3.  **convert the year column to integer**
-4.  **have the GDP values also in line with the earlier observations that are already in billions**
-5.  **'left-join' all four long tables on 'country' and 'year'**
+First, commas were stripped from GDP values and percentage signs from inflation and poverty figures, converting all columns to numeric. Without this step, R would treat these as character strings and all calculations would fail. 
 
-```{r data_cleaning}
-clean_long <- function(df, value_col) {
-  df%>%
-    pivot_longer(-Country,names_to = "year", values_to = value_col) %>%
-    mutate(year = as.integer(year))
-}
-```
+Second, all four datasets were pivoted from wide format (one column per year) to long format (one row per country-year), which is required for ggplot2 and for the join.
+
+Third, the year column was converted from character to integer so it can be used on a continuous axis. 
+
+Finally, all four long tables were merged using left_join() on Country and year, keeping all GDP rows as the base and attaching matching happiness, inflation, and poverty values. A trade-off of the left join is that if a country-year exists in GDP but not in another dataset, the row is retained with an NA — this preserves data completeness but means some analyses will implicitly drop those rows via na.rm = TRUE. No rows were manually removed; all missing values are handled at the analysis stage. 
+
 
 ```{r remove_symbols}
 gdp <- gdp %>%
@@ -113,6 +108,14 @@ inflation <- inflation %>%
 
 poverty <- poverty %>%
   mutate(across(-Country, ~ as.numeric(gsub("%", "", .))))
+```
+
+```{r data_cleaning}
+clean_long <- function(df, value_col) {
+  df%>%
+    pivot_longer(-Country,names_to = "year", values_to = value_col) %>%
+    mutate(year = as.integer(year))
+}
 ```
 
 ```{r pivot_too_long}
@@ -131,7 +134,11 @@ merged <- gdp %>%
 
 ## 3.2 Generate necessary variables
 
-Variable 1
+We construct two new variables to enable sub-population comparison.
+
+**period** bins the continuous year variable into three categorical time periods: Early (2014–2017), Mid (2018–2021), and Late (2022–2025). This allows us to compare happiness distributions across distinct economic phases rather than tracking individual years, which is useful for the boxplot in Section 3.5. 
+
+**happiness_change** captures year-on-year change in happiness per country, calculated as happiness - lag(happiness) within each country group. This variable adds analytical value by showing whether happiness is actively rising or falling in a given year, rather than just its absolute level — which is relevant when examining the impact of the 2022 inflation shock. 
 
 ```{r gen_var1}
 merged <- merged %>%
@@ -140,6 +147,14 @@ merged <- merged %>%
     year <= 2021 ~ "Mid",
     TRUE ~ "Late"
   ))
+```
+
+```{r gen_var2}
+merged <- merged %>%
+  group_by(Country) %>%
+  arrange(year) %>%
+  mutate(happiness_change = happiness - lag(happiness)) %>%
+  ungroup() 
 ```
 
 ## 3.3 Visualize temporal variation
@@ -155,14 +170,16 @@ merged %>%
   facet_wrap(~ variable, scales = "free_y") +
   labs(title = "Happiness, GDP(PPP), inflation, poverty Benelux",
        x = "Year",
-       y = "Value",
-       color = "Country")
+       y = "Indicator value",
+       color = "Country",
+       caption = "Happiness 0-10 scale. Inflation: HICP annual rate (%). Poverty: at-risk-of-poverty rate (%).")
 
 ggplot(merged, aes(x = year, y = gdp, color = Country)) +
   geom_line() +
   geom_point() +
   scale_y_log10() +
   labs(title = "GDP (PPP) in Benelux (log scale)",
+       subtitle = "GDP per capita as index relative to EU average (EU = 100)",
        x = "Year",
        y = "GDP(PPP)",
        color = "Country")
@@ -192,8 +209,9 @@ ggplot(benelux_map) +
   geom_sf(aes(fill = avg_happiness)) +
   coord_sf(xlim = c(2, 7), ylim = c(49, 54), expand = FALSE) +
   scale_fill_viridis_c(option = "plasma", na.value = "grey90") +
-  labs(title = "Average happiness Benelux (2014-2025)",
-       fill = "Average happiness") +
+  labs(title = "Average happiness score by Benelux country (2014–2025)",
+     subtitle = "Happiness measured on a 0–10 scale ",
+     fill = "Avg. happiness (0–10 scale)") +
   theme_minimal()
 
 ```
@@ -206,8 +224,9 @@ The map shows the Netherlands had the highest average happiness over 2014–2025
 ggplot(merged, aes(x = period, y = happiness, fill = period)) + geom_boxplot() +
   facet_wrap(~ Country) + 
   labs(title = "Happiness by time period, split by country",
-       x = "Time period",
-       y = "Happiness score")
+       x = "Time period (Early: 2014-2017, Mid: 2018-2021, Late: 2022-2025",
+       y = "Happiness score (0-10 scale)",
+       fill = "period")
 ```
 
 Happiness was stable across time periods in Belgium, while Luxembourg and the Netherlands showed a slight upward trend into the Late period. The Netherlands scored highest in every period. This suggests factors beyond GDP — such as inequality and social policy — shape how economic conditions translate into well-being.
@@ -223,11 +242,13 @@ merged %>%
   geom_line() +
   geom_point() +
   geom_vline(xintercept = 2020, linetype = "dashed", color = "red") +
-  facet_wrap(~ variable, scales = "free_y") +
-  labs(title = "Happines & inflation with COVID",
-       x = "Year",
-       y = "Value",
-       color = "Country")
+  annotate("text", x = 2020.2, y = Inf, label = "COVID-19\npandemic", 
+           hjust = 0, vjust = 1.5, size = 3, color = "red") +
+  labs(title = "Happiness & inflation around the COVID-19 pandemic (Benelux)",
+     x = "Year",
+     y = "Indicator value",
+     color = "Country",
+     caption = "Happiness: 0–10 scale. Inflation: HICP annual rate (%). Red dashed line = COVID-19 pandemic (2020).")
 ```
 
 Before 2020, inflation was low and happiness was steady across all three countries. After the COVID shock, inflation spiked dramatically in 2022 while happiness plateaued or declined slightly. This co-movement suggests inflation may dampen well-being through reduced purchasing power, though causality cannot be established from this association alone.
