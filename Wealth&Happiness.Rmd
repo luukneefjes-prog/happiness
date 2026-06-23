@@ -244,6 +244,7 @@ merged %>%
   geom_vline(xintercept = 2020, linetype = "dashed", color = "red") +
   annotate("text", x = 2020.2, y = Inf, label = "COVID-19\npandemic", 
            hjust = 0, vjust = 1.5, size = 3, color = "red") +
+  facet_wrap(~ variable, scales = "free_y", ncol = 1) +
   labs(title = "Happiness & inflation around the COVID-19 pandemic (Benelux)",
      x = "Year",
      y = "Indicator value",
