@@ -12,9 +12,9 @@ author:
 - "Fatima Amankour"
 date: "`r Sys.Date()`"
 output: pdf_document
+toc: true
 ---
 
-# Set-up your environment
 
 ```{r package_install, include=FALSE}
 install.packages("tidyverse")
@@ -42,15 +42,15 @@ require(rnaturalearthdata)
 require(sf)
 ```
 
-# Part 1 - Identification of the social problem
+# 1 - Identification of the social problem
 
 ## 1.1 Describe the Social Problem
 
-The relation between wealth and happiness in countries is a social problem because many societies think that wealth is the key to a happy life. While richer countries tend to report higher life satisfaction, research shows that beyond a certain income level, more wealth does not equal more happiness (Kahneman & Deaton, 2010). The Easterlin paradox suggests that economic growth over time does not increase happiness at the same rate forever (Easterlin, 1974). More recently, Killingsworth et al. (2023) found that happiness does continue to rise with income for most people, but not for those who are already experiencing emotional distress. The relation between wealth and happiness is dependent on the context. Most studies focus on individual level income more than macro level indicators such as poverty and inflation.
+The relation between wealth and happiness in countries is a social problem because many societies think that wealth is the key to a happy life. While richer countries tend to report higher life satisfaction, research shows that beyond a certain income level, more wealth does not equal more happiness (Kahneman & Deaton, 2010). The Easterlin paradox suggests that economic growth over time does not increase happiness at the same rate forever (Easterlin, 1974). More recently, researchers found that happiness does continue to rise with income for most people, but not for those who are already experiencing emotional distress. (Killingsworth et al. 2023)The relation between wealth and happiness is dependent on the context. Most studies focus on individual level income more than macro level indicators such as poverty and inflation.
 
 In this report, we address that gap by researching the GDP, inflation, poverty, and happiness between 2014 and 2025 in the Benelux.
 
-# Part 2 - Data Sourcing
+# 2 - Data Sourcing
 
 ## 2.1 Load in the data
 
@@ -78,25 +78,19 @@ All four datasets have the same limitation, they are annual national averages. V
 
 All four datasets were structured in wide format (countries as rows, years as columns) and were cleaned and merged into a single long-format dataset for analysis. 
 
-
-
-## 2.3 Describe the type of variables included
-
-The variables in this project are macro-level socioeconomic and well-being indicators collected at the country-year level. GDP (PPP) and inflation are derived from administrative and national accounts sources from Eurostat. The poverty rate is based on household survey data (EU-SILC) aggregated to the national level. The happiness score is based on survey responses in which individuals rate their life satisfaction, that is subjective data.
-
-# Part 3 - Quantifying
+# 3 - Quantifying
 
 ## 3.1 Data cleaning
 
-The raw datasets required several cleaning steps before they could be merged and analysed. 
+The raw datasets needed several cleaning steps before they could be merged and analysed. 
 
-First, commas were stripped from GDP values and percentage signs from inflation and poverty figures, converting all columns to numeric. Without this step, R would treat these as character strings and all calculations would fail. 
+First, commas were stripped from GDP values and percentage signs were stripped from inflation and poverty figures, converting all columns to numeric. Without this step, R would treat these as character strings and all calculations would fail. And we don't want that.
 
 Second, all four datasets were pivoted from wide format (one column per year) to long format (one row per country-year), which is required for ggplot2 and for the join.
 
 Third, the year column was converted from character to integer so it can be used on a continuous axis. 
 
-Finally, all four long tables were merged using left_join() on Country and year, keeping all GDP rows as the base and attaching matching happiness, inflation, and poverty values. A trade-off of the left join is that if a country-year exists in GDP but not in another dataset, the row is retained with an NA — this preserves data completeness but means some analyses will implicitly drop those rows via na.rm = TRUE. No rows were manually removed; all missing values are handled at the analysis stage. 
+Finally, all four long tables were merged using **left_join()** on Country and year, keeping all GDP rows as the base and linking them with happiness, inflation, and poverty values. A disadvantage of the left join is that if a country-year exists in GDP but not in another dataset, the row is retained with an NA — this preserves data completeness but means some analyses will implicitly drop those rows via **na.rm = TRUE**. No rows were manually removed; all missing values are handled at the analysis stage. 
 
 
 ```{r remove_symbols}
@@ -132,7 +126,11 @@ merged <- gdp %>%
   left_join(poverty, by = c("Country", "year"))
 ```
 
-## 3.2 Generate necessary variables
+## 3.2 Describe the type of variables included
+
+The variables in this project are macro-level socioeconomic and well-being indicators collected at the country-year level. GDP (PPP) and inflation are sourced from administrative and national accounts through Eurostat. The poverty rate is based on household survey data (EU-SILC) aggregated to the national level. The happiness score is based on survey responses in which individuals rate their life satisfaction, that is subjective data.
+
+## 3.3 Generate necessary variables
 
 We construct two new variables to enable sub-population comparison.
 
@@ -157,7 +155,7 @@ merged <- merged %>%
   ungroup() 
 ```
 
-## 3.3 Visualize temporal variation
+## 3.4 Visualize temporal variation
 
 ```{r temporal_variation}
 merged %>%
@@ -185,9 +183,9 @@ ggplot(merged, aes(x = year, y = gdp, color = Country)) +
        color = "Country")
 ```
 
-Happiness scores remained stable across all three countries from 2014 to 2025, fluctuating within a narrow range. Inflation was low until spiking sharply in 2022 due to the post-COVID energy crisis, then fell again. Despite these economic shocks, happiness did not drop proportionally, supporting the Easterlin paradox.
+Happiness scores remained pretty stable across all three countries from 2014 to 2025. Inflation was low until spiking sharply in 2022 due to the post-COVID energy crisis, then fell again. Despite these shocks, happiness did not drop quickly, supporting the Easterlin paradox.
 
-## 3.4 Visualize spatial variation
+## 3.5 Visualize spatial variation
 
 ```{r average_happiness}
 avg_happiness <- merged %>%
@@ -216,9 +214,9 @@ ggplot(benelux_map) +
 
 ```
 
-The map shows the Netherlands had the highest average happiness over 2014–2025, followed by Luxembourg, then Belgium. Notably, Luxembourg has by far the highest GDP yet does not rank first in happiness, consistent with the idea that wealth beyond a certain threshold does not directly translate into greater life satisfaction.
+The map shows the Netherlands had the highest average happiness over 2014–2025, followed by Luxembourg, then Belgium. If we look at Luxembourg it has by far the highest GDP and yet does not rank first in happiness, supporting the idea that wealth beyond a certain point does not equal greater life satisfaction.
 
-## 3.5 Visualize sub-population variation
+## 3.6 Visualize sub-population variation
 
 ```{r boxplot}
 ggplot(merged, aes(x = period, y = happiness, fill = period)) + geom_boxplot() +
@@ -229,9 +227,9 @@ ggplot(merged, aes(x = period, y = happiness, fill = period)) + geom_boxplot() +
        fill = "period")
 ```
 
-Happiness was stable across time periods in Belgium, while Luxembourg and the Netherlands showed a slight upward trend into the Late period. The Netherlands scored highest in every period. This suggests factors beyond GDP — such as inequality and social policy — shape how economic conditions translate into well-being.
+We can see that happiness was stable across time periods in Belgium, while Luxembourg and the Netherlands showed a slight rise into the Late period. The Netherlands scored highest in every period. This suggests that factors beyond GDP — such as inequality and social policy — are also important factors for overall well-being.
 
-## 3.6 Event analysis
+## 3.7 Event analysis
 
 ```{r analysis}
 merged %>%
@@ -251,8 +249,7 @@ merged %>%
      color = "Country",
      caption = "Happiness: 0–10 scale. Inflation: HICP annual rate (%). Red dashed line = COVID-19 pandemic (2020).")
 ```
-
-Before 2020, inflation was low and happiness was steady across all three countries. After the COVID shock, inflation spiked dramatically in 2022 while happiness plateaued or declined slightly. This co-movement suggests inflation may dampen well-being through reduced purchasing power, though causality cannot be established from this association alone.
+Be20, inflation was low and happiness was steady across all three countries. After the COVID shock, inflation spiked dramatically in 2022 while happiness plateaued or declined slightly. This co-movement suggests inflation may dampen well-being through reduced purchasing power, though causality cannot be established from this association alone.
 
 # Part 4 - Discussion
 
