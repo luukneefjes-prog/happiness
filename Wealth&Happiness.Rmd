@@ -183,7 +183,7 @@ ggplot(merged, aes(x = year, y = gdp, color = Country)) +
        color = "Country")
 ```
 
-Happiness scores remained pretty stable across all three countries from 2014 to 2025. Inflation was low until spiking sharply in 2022 due to the post-COVID energy crisis, then fell again. Despite these shocks, happiness did not drop quickly, supporting the Easterlin paradox.
+We can see that happiness scores remained pretty stable across all three countries from 2014 to 2025. Inflation was low until spiking sharply in 2022 due to the post-COVID energy crisis, then fell again. Despite these shocks, happiness did not drop quickly, supporting the Easterlin paradox.
 
 ## 3.5 Visualize spatial variation
 
@@ -214,7 +214,7 @@ ggplot(benelux_map) +
 
 ```
 
-The map shows the Netherlands had the highest average happiness over 2014–2025, followed by Luxembourg, then Belgium. If we look at Luxembourg it has by far the highest GDP and yet does not rank first in happiness, supporting the idea that wealth beyond a certain point does not equal greater life satisfaction.
+We can see in this map the Netherlands had the highest average happiness over 2014–2025, followed by Luxembourg, then Belgium. If we look at Luxembourg it has by far the highest GDP and yet does not rank first in happiness, supporting the idea that wealth beyond a certain point does not equal greater life satisfaction.
 
 ## 3.6 Visualize sub-population variation
 
@@ -249,13 +249,15 @@ merged %>%
      color = "Country",
      caption = "Happiness: 0–10 scale. Inflation: HICP annual rate (%). Red dashed line = COVID-19 pandemic (2020).")
 ```
-Be20, inflation was low and happiness was steady across all three countries. After the COVID shock, inflation spiked dramatically in 2022 while happiness plateaued or declined slightly. This co-movement suggests inflation may dampen well-being through reduced purchasing power, though causality cannot be established from this association alone.
+
+We can see that before 2020, inflation was low and happiness was steady across all three countries. After the COVID shock, inflation spiked in 2022 while happiness plateaued or declined slightly. This suggests that inflation may lower well-being because purchasing power is lower, but it does not prove it.
 
 # Part 4 - Discussion
 
-The relationship between wealth and happiness was studied in Benelux from 2014 to 2025. GDP, inflation, poverty and happiness scores were used as key variables for this research. Numerous studies and analyses provide the rationale for this thesis. Easterlin (1974) demonstrated how richer people are always happier than poorer ones in a country; but it also showed that rising national income does not lead to rising happiness over time. This statement has been widely discussed in the past. The contentment levels of most individuals still increase with their income, Killingsworth et al. (2023) recently showed. However, this link is weaker for individuals that are already suffering from depression, suggesting that one’s wealth doesn’t necessarily equal happiness. This paper utilises the COVID-19 pandemic (2020–2021) and its economic impacts particularly the increase in inflation in 2022 as a natural experiment to study the relationship between the real economy and the financial markets.
+We studied the relationship between wealth and happiness in the Benelux from 2014 to 2025. And we used GDP, inflation, poverty and happiness scores as variables for this research. Also some studies and analyses were used to support the research. Easterlin (1974) demonstrated how richer people are always happier than poorer ones in a country; but it also showed that rising national income does not lead to rising happiness over time. This statement has been widely discussed in the past. Killingsworth et al. (2023) showed that the contentment levels of most individuals still increase with their income. However, this relation is weaker for individuals that are already suffering from depression, suggesting that how wealthy a person is does not equal how happy they are. We used the COVID-19 pandemic in this report and saw that its economic impacts, particularly the increase in inflation in 2022 influence the relationship between wealth and happiness.
 
-In general, the fluctuation of wealth, due to the ups and downs happening in the economy, never makes one immune to it. Happiness reduces significantly when it noted that the inflation spikes in 2022 and the 2020 Covid shock, which was when prices and purchasing power became more than reasonable expectations. This is also the case for rich countries, note. The literature also mentions a match of this sort. Killingsworth et al. (2023) the observations reflect that wealth is not always a guaranteed factor of happiness. In addition, the reminder of Easterlin’s (1974) paradox is that it is not enough for the economy of the society to grow for happiness to grow. After we pass the threshold, wealth stability and distribution rather than its magnitude will determine happiness.
+In general, changes in wealth caused by economic shifts do not protect people's well-being. Happiness drops significantly during periods of high inflation, such as the 2022 inflation spike and the 2020 COVID-19 shock, when prices rose and purchasing power fell, even in the richer countries. Researchers like Matthew Killingsworth also point out that wealth does not always guarantee happiness. This supports Richard Easterlin’s paradox, which argues that economic growth alone does not necessarily increase happiness. Once basic needs are met, the stability and distribution of wealth matters more for happiness than the total amount of wealth.
+
 
 # Part 5 - Reproducibility
 
